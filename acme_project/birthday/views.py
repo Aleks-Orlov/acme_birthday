@@ -1,7 +1,9 @@
 from django.shortcuts import render
 
 from .forms import BirthdayForm
+from .models import Birthday
 from .utils import calculate_birthday_countdown
+
 
 def birthday(request):
     form = BirthdayForm(request.POST or None)
@@ -16,4 +18,15 @@ def birthday(request):
         request,
         'birthday/birthday.html',
         context
+    )
+
+
+def birthday_list(request):
+    # Получаем все объекты модели Birthday из БД.
+    birthdays = Birthday.objects.all()
+    # Передаём их в контекст шаблона.
+    return render(
+        request,
+        'birthday/birthday_list.html',
+        {'birthdays': birthdays}
     )
