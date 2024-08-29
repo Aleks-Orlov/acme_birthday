@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core.paginator import Paginator
 
 from .forms import BirthdayForm
 from .models import Birthday
@@ -30,14 +31,20 @@ def birthday(request, pk=None):
 
 
 def birthday_list(request):
-    # Получаем все объекты модели Birthday из БД.
-    birthdays = Birthday.objects.all()
-    # Передаём их в контекст шаблона.
+    # Получаем список всех объектов с сортировкой по id.
+    birthdays = Birthday.objects.order_by('id')
+    paginator = Paginator(
+        birthdays,
+        2
+    )
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     return render(
         request,
         'birthday/birthday_list.html',
-        {'birthdays': birthdays}
+        {'page_obj': page_obj}
     )
+
 
 def delete_birthday(request, pk):
     # Получаем объект модели или выбрасываем 404 ошибку.
