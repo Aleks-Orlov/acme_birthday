@@ -8,6 +8,12 @@
       <!-- Обращаемся через birthday -->
       {{ birthday.first_name }} {{ birthday.last_name }} - {{ birthday.birthday }}
     </div>
+    {% if birthday.image %}
+      <div>
+        <!-- Картинку сделаем побольше, чем на странице list/: высотой 200px -->
+        <img src="{{ birthday.image.url }}" height="200">
+      </div>
+    {% endif %}
     <div class="card-body">
       <!-- В форме только csrf-токен и кнопка. Никакие другие поля тут не нужны.  -->
       <form method="post">

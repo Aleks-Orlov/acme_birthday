@@ -29,27 +29,19 @@ from .utils import calculate_birthday_countdown
 #         context.update({'birthday_countdown': birthday_countdown})
 #     return render(
 #         request,
-#         'birthday/birthday.html',
+#         'birthday/birthday_form.html',
 #         context
 #     )
 
 
-class BirthdayMixin:
+class BirthdayCreateView(CreateView):
     model = Birthday
-    success_url = reverse_lazy('birthday:list')
-
-
-class BirthdayFormMixin:
     form_class = BirthdayForm
-    template_name = 'birthday/birthday.html'
 
 
-class BirthdayCreateView(BirthdayMixin, BirthdayFormMixin, CreateView):
-    pass
-
-
-class BirthdayUpdateView(BirthdayMixin, BirthdayFormMixin, UpdateView):
-    pass
+class BirthdayUpdateView(UpdateView):
+    model = Birthday
+    form_class = BirthdayForm
 
 
 # def birthday_list(request):
@@ -88,18 +80,17 @@ class BirthdayListView(ListView):
 #     # Если был получен GET-запрос — отображаем форму.
 #     return render(
 #         request,
-#         'birthday/birthday.html',
+#         'birthday/birthday_form.html',
 #         {'form': form}
 #     )
 
 
-class BirthdayDeleteView(BirthdayMixin, DeleteView):
-    pass
+class BirthdayDeleteView(DeleteView):
+    model = Birthday
 
 
 class BirthdayDetailView(DetailView):
     model = Birthday
-    template_name = 'birthday/birthday_detail.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
