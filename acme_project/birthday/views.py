@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
-from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+from django.views.generic import (
+    CreateView, DeleteView, DetailView, ListView, UpdateView
+)
 from django.urls import reverse_lazy
 
 from .forms import BirthdayForm
@@ -93,3 +95,15 @@ class BirthdayListView(ListView):
 
 class BirthdayDeleteView(BirthdayMixin, DeleteView):
     pass
+
+
+class BirthdayDetailView(DetailView):
+    model = Birthday
+    template_name = 'birthday/birthday_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['birthday_countdown'] = calculate_birthday_countdown(
+            self.object.birthday
+        )
+        return context
