@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
     CreateView, DeleteView, DetailView, ListView, UpdateView
 )
@@ -34,12 +35,12 @@ from .utils import calculate_birthday_countdown
 #     )
 
 
-class BirthdayCreateView(CreateView):
+class BirthdayCreateView(LoginRequiredMixin, CreateView):
     model = Birthday
     form_class = BirthdayForm
 
 
-class BirthdayUpdateView(UpdateView):
+class BirthdayUpdateView(LoginRequiredMixin, UpdateView):
     model = Birthday
     form_class = BirthdayForm
 
@@ -85,7 +86,7 @@ class BirthdayListView(ListView):
 #     )
 
 
-class BirthdayDeleteView(DeleteView):
+class BirthdayDeleteView(LoginRequiredMixin, DeleteView):
     model = Birthday
 
 

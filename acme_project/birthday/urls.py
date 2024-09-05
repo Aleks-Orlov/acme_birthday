@@ -11,6 +11,11 @@ urlpatterns = [
         name='list'
     ),
     path(
+        'create/',
+        views.BirthdayCreateView.as_view(),
+        name='create'
+    ),
+    path(
         '<int:pk>/edit/',
         views.BirthdayUpdateView.as_view(),
         name='edit'
