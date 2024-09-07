@@ -32,7 +32,7 @@ class Birthday(models.Model):
         verbose_name='Автор записи',
         on_delete=models.CASCADE,
         null=True,
-    ) 
+    )
 
     class Meta:
         constraints = (
