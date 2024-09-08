@@ -16,6 +16,11 @@ urlpatterns = [
         name='create'
     ),
     path(
+        '<int:pk>/comment/',
+        views.add_comment,
+        name='add_comment'
+    ),
+    path(
         '<int:pk>/edit/',
         views.BirthdayUpdateView.as_view(),
         name='edit'
