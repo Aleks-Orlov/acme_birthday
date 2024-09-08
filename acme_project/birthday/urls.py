@@ -17,7 +17,8 @@ urlpatterns = [
     ),
     path(
         '<int:pk>/comment/',
-        views.add_comment,
+        # views.add_comment,
+        views.CongratulationCreatView.as_view(),
         name='add_comment'
     ),
     path(
